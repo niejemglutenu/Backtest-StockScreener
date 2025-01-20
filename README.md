@@ -59,10 +59,6 @@ Framework:
 - Django==5.1.4
 - Bootstrap 5.3.2 (JavaScript Bundle)
 
-HTML:
-- Django template engine
-- AJAX
- 
 Biblioteki:
 - backtrader==1.9.78.123
 - pandas==2.2.3
