@@ -3,10 +3,10 @@ Web application build with Django.
 
 1. Charakterystyka oprogramowania
 
-a. Nazwa skrócona
+a. Nazwa skrócona:
 BacktestAPP
 
-b. Nazwa pełna
+b. Nazwa pełna:
 Analytical tool for backtesting and stock screener 
 Backtest&Sctockscreener
 
