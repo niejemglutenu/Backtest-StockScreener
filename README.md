@@ -2,18 +2,29 @@
 Web application build with Django.
 1. Charakterystyka oprogramowania
 a. Nazwa skrócona
-Backtest
+BacktestAPP
 b. Nazwa pełna
+Analytical tool for backtesting and stock screener 
 Backtest&Sctockscreener
 
-(OPIS)
-Jeden dwa akapity
+Stworzona aplikacja internetowa służy do przeprowadzania symulacji inwestycji portfelowej w akcje.
+Składa się z dwóch analitycznych portali. 
+A) "StockScreener" stanowi panel pozwalający na wybór konkretnej spółki giełdowej i wizualizację dostępnych danych.
+B)"Backtest" stanowi panel umożliwiający przeprowadzenie analizy portfelowej na danych historycznych.
+Aplikacja pozwala na zarówno użytkowanie swoich własnych danych, jak i dostarcza notowania dla wybranych spółek giełdowych. 
 
-
-2. Prawa autorskie.
+3. Prawa autorskie.
 a. Autorzy
-b. Warunki licencyjne do oprogramowania wytworzonego przez grupę
-3. Specyfikacja wymagań – alternatywnie: a lub b
+Miłosz Aubrecht-Prądzyński
+
+5. Specyfikacja wymagań – alternatywnie: a lub b
+
+| Tables        | Are           | Cool  |
+| ------------- |:-------------:| -----:|
+| col 3 is      | right-aligned | $1600 |
+| col 2 is      | centered      |   $12 |
+| zebra stripes | are neat      |    $1 |
+
 a. Pogrupowana lista składająca się z następujących kolumn:
 i. identyfikator,
 ii. nazwa,
@@ -21,7 +32,7 @@ iii. opis,
 iv. priorytet: [1 - wymagane, 2 - przydatne, 3 – opcjonalne]
 v. kategoria: [funkcjonalne, pozafunkcjonalne]
 b. Historyjki użytkownika (ang. user stories)
-4. Architektura systemu/oprogramowania
+6. Architektura systemu/oprogramowania
 a. Architektura rozwoju - stos technologiczny w postaci wykazu
 składającego się z: nazwy, przeznaczenia, numeru wersji
 Narzędzie programistyczne i technologie informatyczne wykorzystywane
@@ -30,7 +41,7 @@ b. Architektura uruchomieniowa - stos technologiczny w postaci wykazu
 składającego się z: nazwy, przeznaczenia, numeru wersji
 Narzędzie programistyczne i technologie informatyczne wymagane podczas
 wykonywania oprogramowania lub systemu w środowisku docelowym
-5. Testy
+7. Testy
 a. Scenariusze testów
 b. Sprawozdanie z wykonania scenariuszy testów
 2
