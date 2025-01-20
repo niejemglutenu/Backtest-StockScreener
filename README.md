@@ -40,12 +40,14 @@ Miłosz Aubrecht-Prądzyński
 6. Architektura systemu/oprogramowania
 
 Języki:
-Python, Javasript
+- Python
+- Javasript
 Biblioteki:
-backtrader==1.9.78.123
-Django==5.1.4
-pandas==2.2.3
-plotly==5.24.1
+- backtrader==1.9.78.123
+- Django==5.1.4
+- pandas==2.2.3
+- plotly==5.24.1
+
 Zawarte zostały jedynie najważniejsze z wykorzystanych bibliotek. Pełna lista dostępna w requirements.txt.
 
 7. Testy
