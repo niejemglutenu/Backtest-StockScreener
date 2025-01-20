@@ -16,7 +16,9 @@ Składa się z dwóch analitycznych portali.
 A) "StockScreener" stanowi panel pozwalający na wybór konkretnej spółki giełdowej i wizualizację dostępnych danych.
 
 B)"Backtest" stanowi panel umożliwiający przeprowadzenie analizy portfelowej na danych historycznych.
-Aplikacja pozwala na zarówno użytkowanie swoich własnych danych, jak i dostarcza notowania dla wybranych spółek giełdowych. 
+Aplikacja pozwala na zarówno użytkowanie swoich własnych danych, jak i dostarcza notowań dla wybranych spółek giełdowych.
+
+Zasób bazy danych to 100 spółek z indeksu NAS100 (100 największych technologicznych spółek notowanych na NASDAQ
 
 3. Prawa autorskie.
 a. Autorzy
@@ -30,7 +32,8 @@ a. Wymagania zawarte
 | 1   | User                   | Możliwość założenia konta, funkcje logowania, rejestrowania i wylogowywania | przydatne  | funkcjonalne     |
 | 2   | Pliki użytkownika       | Możliwość przetwarzania plików przesłanych przez użytkownika         | wymagane   | funkcjonalne     |
 | 3   | Notowania z bazy danych | Udostępnienie użytkownikowi wybranych symboli giełdowych              | wymagane   | pozafunkcjonalne  |
-| 4   | Wizualizacja danych     | Wizualizacje (wykres liniowy dla ceny, histogramy dla zwrotów, wykres świecowy) | wymagane   | funkcjonalne     |
+| 4   | Wizualizacja danych     | Wizualizacje (tabela, wykres liniowy dla ceny, histogramy dla zwrotów, wykres świecowy) | wymagane   | funkcjonalne     |
+| 5   | Filtr-horyzont     | Wybór przedziału testu | wymagane   | funkcjonalne     |
 | 5   | Opcje wizualizacji     | Wybór okresu, wykresu, symbolu | wymagane   | funkcjonalne     |
 | 6    | Lista symboli           | Wyszukiwanie symbolu spółki za pomocą stale przypiętej listy         | przydatne  | funkcjonalne     |
 | 7   | Przeprowadzenie testu   | Przeprowadzenie backtestu, historycznych symulacji realizacji portfeli inwestycyjnych | wymagane   | funkcjonalne     |
@@ -63,6 +66,7 @@ Biblioteki:
 - backtrader==1.9.78.123
 - pandas==2.2.3
 - plotly==5.24.1
+
 
 Zawarte zostały jedynie najważniejsze z wykorzystanych bibliotek. Pełna lista dostępna w requirements.txt.
 
