@@ -48,6 +48,8 @@ a. Scenariusze testów
 1) Użytkownik zakłada konto
 2) Uzytkownik wybiera rodzaj wizualizacji oraz symbol giełdowy, a następnie wyświetla pożądane dane.
 3) Uzytkownik zaznacza wszystkie wybrane opcje i przeprowadza backtest.   
+
 b. Sprawozdanie z wykonania scenariuszy testów
+
 Każdy z testów zakończył się pozytywnie.
 
