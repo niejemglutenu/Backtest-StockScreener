@@ -1,15 +1,20 @@
 # Backtest-StockScreener
 Web application build with Django.
+
 1. Charakterystyka oprogramowania
+
 a. Nazwa skrócona
 BacktestAPP
+
 b. Nazwa pełna
 Analytical tool for backtesting and stock screener 
 Backtest&Sctockscreener
 
 Stworzona aplikacja internetowa służy do przeprowadzania symulacji inwestycji portfelowej w akcje.
 Składa się z dwóch analitycznych portali. 
+
 A) "StockScreener" stanowi panel pozwalający na wybór konkretnej spółki giełdowej i wizualizację dostępnych danych.
+
 B)"Backtest" stanowi panel umożliwiający przeprowadzenie analizy portfelowej na danych historycznych.
 Aplikacja pozwala na zarówno użytkowanie swoich własnych danych, jak i dostarcza notowania dla wybranych spółek giełdowych. 
 
@@ -44,11 +49,13 @@ plotly==5.24.1
 Zawarte zostały jedynie najważniejsze z wykorzystanych bibliotek. Pełna lista dostępna w requirements.txt.
 
 7. Testy
+   
 a. Scenariusze testów
-1) Użytkownik zakłada konto
-2) Uzytkownik wybiera rodzaj wizualizacji oraz symbol giełdowy, a następnie wyświetla pożądane dane.
-3) Uzytkownik zaznacza wszystkie wybrane opcje i przeprowadza backtest.   
 
+1) Użytkownik zakłada konto, loguje się i wylogowuje się.
+2) Uzytkownik wybiera rodzaj wizualizacji oraz symbol giełdowy, a następnie wyświetla pożądane dane.
+3) Uzytkownik zaznacza wszystkie niezbędne opcje testu i uruchamia backtest.
+   
 b. Sprawozdanie z wykonania scenariuszy testów
 
 Każdy z testów zakończył się pozytywnie.
