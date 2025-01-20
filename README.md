@@ -69,7 +69,11 @@ Biblioteki:
 - pandas==2.2.3
 - plotly==5.24.1
 
+Baza danych:
+- SQLITE 3
 
+Źródło danych:
+- Alpaca API
 Zawarte zostały jedynie najważniejsze z wykorzystanych bibliotek. Pełna lista dostępna w requirements.txt.
 
 7. Testy
@@ -83,4 +87,8 @@ a. Scenariusze testów
 b. Sprawozdanie z wykonania scenariuszy testów
 
 Każdy z testów zakończył się pozytywnie.
+
+8. Instrukcja instalacji.
+   1) instalacja bibliotek
+   2) 
 
