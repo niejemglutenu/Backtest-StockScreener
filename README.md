@@ -23,7 +23,8 @@ Zasób bazy danych to 100 spółek z indeksu NAS100 (100 największych technolog
 3. Prawa autorskie.
 a. Autorzy
 Miłosz Aubrecht-Prądzyński
-
+b. Licencje
+Apache License 2.0
 5. Specyfikacja wymagań 
 a. Wymagania zawarte
 
@@ -38,6 +39,7 @@ a. Wymagania zawarte
 | 6    | Lista symboli           | Wyszukiwanie symbolu spółki za pomocą stale przypiętej listy         | przydatne  | funkcjonalne     |
 | 7   | Przeprowadzenie testu   | Przeprowadzenie backtestu, historycznych symulacji realizacji portfeli inwestycyjnych | wymagane   | funkcjonalne     |
 | 8   | Opcje backtestu     | Wybór okresu, symboli, strategii i parametrów, wysokości opłat   | wymagane   | funkcjonalne     |
+| 8   | Strategie  | SMA, RSI, MACD, Ichimoku Cloud| wymagane/przydatne/dodatkowe   | funkcjonalne     |
 | 9   | Wyniki testu            | Wyświetlenie wyników backtestu (portfolio performance metrics)       | wymagane   | pozafunkcjonalne |
 
 b. Wymagania dodatkowe (nieosiągnięte)
