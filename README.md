@@ -42,6 +42,7 @@ Miłosz Aubrecht-Prądzyński
 Języki:
 - Python
 - Javasript
+  
 Biblioteki:
 - backtrader==1.9.78.123
 - Django==5.1.4
