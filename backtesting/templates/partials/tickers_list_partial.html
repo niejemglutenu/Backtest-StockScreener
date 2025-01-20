@@ -1,0 +1,18 @@
+<div>
+    {% if data %}
+        <ul class="list-group" role="list">
+            {% for item in data %}
+                <li 
+                    class="list-group-item ticker-item {% if item == current_ticker %}active{% endif %}" 
+                    data-ticker="{{ item }}" 
+                    onclick="selectTicker('{{ item }}')" 
+                    role="listitem" 
+                    aria-selected="{% if item == current_ticker %}true{% else %}false{% endif %}">
+                    {{ item }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="text-muted">No tickers available</p>
+    {% endif %}
+</div>

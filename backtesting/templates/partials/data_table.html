@@ -1,0 +1,31 @@
+<!-- filepath: /c:/Users/nieje/BT_APP/BT/backtesting/templates/partials/data_table.html -->
+<div id="data-table-container">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Ticker</th>
+                <th>Timestamp</th>
+                <th>Open</th>
+                <th>High</th>
+                <th>Low</th>
+                <th>Close</th>
+                <th>Volume</th>
+                <th>VWAP</th>
+            </tr>
+        </thead>
+        <tbody id="data-table-body">
+            {% for row in data %}
+                <tr>
+                    <td>{{ row.ticker }}</td>
+                    <td>{{ row.timestamp }}</td>
+                    <td>{{ row.open }}</td>
+                    <td>{{ row.high }}</td>
+                    <td>{{ row.low }}</td>
+                    <td>{{ row.close }}</td>
+                    <td>{{ row.volume }}</td>
+                    <td>{{ row.vwap }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

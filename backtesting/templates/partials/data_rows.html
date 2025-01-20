@@ -1,0 +1,12 @@
+{% for item in data %}
+<tr>
+    <td>{{ item.ticker }}</td>
+    <td>{{ item.timestamp|date:"Y-m-d" }}</td>
+    <td>{{ item.open }}</td>
+    <td>{{ item.high }}</td>
+    <td>{{ item.low }}</td>
+    <td>{{ item.close }}</td>
+    <td>{{ item.volume }}</td>
+    <td>{{ item.vwap }}</td>
+</tr>
+{% endfor %}

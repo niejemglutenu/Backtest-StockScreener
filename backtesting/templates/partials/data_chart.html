@@ -1,0 +1,9 @@
+<div id="plotly-div" class="mt-4">
+    {% if plot_json %}
+         <script>
+               const plotJson = {{ plot_json|safe }};
+         </script>
+    {% else %}
+        <p>No plot data available.</p>
+    {% endif %}
+</div>

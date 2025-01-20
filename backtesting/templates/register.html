@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Register for Backtest Application
+{% endblock %}
+
+{% block content %}
+<h1>Register or login to begin!</h1>
+
+<!-- Display messages (success/error) -->
+{% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <div class="message {% if message.tags %}{{ message.tags }}{% endif %}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+<!-- Registration form -->
+<form class="form-with-validation" action="{% url 'register' %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Register</button>
+</form>
+{% endblock %}

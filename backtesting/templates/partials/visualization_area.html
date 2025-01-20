@@ -1,0 +1,8 @@
+<!-- filepath: /c:/Users/nieje/BT_APP/BT/backtesting/templates/partials/visualization_area.html -->
+<div>
+    {% if view_type == 'table' %}
+        {% include 'partials/data_table.html' %}
+    {% elif view_type == 'chart' %}
+        {% include 'partials/data_chart.html' %}
+    {% endif %}
+</div>

@@ -1,0 +1,84 @@
+<!-- filepath: /c:/Users/nieje/BT_APP/BT/backtesting/templates/select_stock_source.html -->
+{% extends 'base.html' %}
+
+{% block title %}
+Select Data Source
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div id="content-area">
+        <div class="row">
+            <div class="col">
+                <form id="data-source-form" method="post" action="{% url 'process_data_source' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="hidden" name="from_analytical" value="True">
+                    <div class="form-group">
+                        <span><strong>Select Data Source:</strong></span>
+                        <div class="form-check">
+                            <label class="form-check-label" for="uploaded">
+                                <input type="radio" name="data_source" value="uploaded" id="uploaded" class="form-check-input" required>
+                                Use Uploaded Data <small>(Upload a CSV or Excel file)</small>
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label" for="server">
+                                <input type="radio" name="data_source" value="server" id="server" class="form-check-input" required>
+                                Use Server Data <small>(Fetch data from the server database)</small>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div id="upload_area" style="display:none;" class="form-group mt-3">
+                        <h3>Upload Stock Data</h3>
+                        <p><small>Accepted formats: CSV, XLSX, or XLS</small></p>
+                        <input type="file" name="file" id="file" accept=".csv,.xlsx,.xls" class="form-control" required>
+                        <div id="file-feedback" class="form-text text-danger"></div>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const uploadedRadio = document.getElementById("uploaded");
+        const serverRadio = document.getElementById("server");
+        const uploadDiv = document.getElementById("upload_area");
+        const fileInput = document.getElementById("file");
+        const fileFeedback = document.getElementById("file-feedback");
+
+        // Toggle the visibility of the upload section
+        function toggleVisibility() {
+            if (uploadedRadio.checked) {
+                uploadDiv.style.display = "block";
+                fileInput.required = true;
+                if (fileFeedback) fileFeedback.textContent = "";
+            } else {
+                uploadDiv.style.display = "none";
+                fileInput.required = false;
+                if (fileFeedback) fileFeedback.textContent = "";
+            }
+        }
+
+        function validateFileFormat() {
+            const allowedExtensions = /\.(csv|xlsx|xls)$/i;
+            if (fileInput.value && !allowedExtensions.test(fileInput.value)) {
+                if (fileFeedback) fileFeedback.textContent = "Invalid file type. Please upload a CSV or Excel file.";
+                fileInput.value = "";
+            } else {
+                if (fileFeedback) fileFeedback.textContent = "";
+            }
+        }
+
+        // Initialize visibility and validation
+        if (fileInput) validateFileFormat();
+        toggleVisibility();
+        if (fileInput) fileInput.addEventListener("change", validateFileFormat);
+        if (uploadedRadio) uploadedRadio.addEventListener("change", toggleVisibility);
+        if (serverRadio) serverRadio.addEventListener("change", toggleVisibility);
+    });
+</script>
+{% endblock %}

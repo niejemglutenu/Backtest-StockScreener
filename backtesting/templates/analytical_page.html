@@ -1,0 +1,250 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Visualization Page
+{% endblock %}
+
+
+
+{% block content %}
+    <div class="col-md-3" id="search-results-container">
+        <div id="ticker-search-container">
+            <input type="text" id="ticker-search" class="form-control" placeholder="Search">
+        </div>
+        <ul id="ticker-list" class="list-group mt-2">
+        </ul>
+    </div>
+        <h3>Settings Configuration</h3>
+        <form id="visualization-settings-form" method="get" action="{% url 'handle' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="hidden" id="id_ticker" name="ticker" value="{{ current_ticker }}">
+            <button type="submit" class="btn btn-primary">Update Visualization</button>
+        </form>
+        <div id="visualization-field" class="mt-4">
+            {% include 'partials/data_chart.html' %}
+        </div>
+        <div id="data-table-container" class="mt-4" style="display: none;">
+            <div id="data-table">
+                {% include 'partials/data_rows.html' with page=page data=data view_type=view_type plot_type=plot_type ticker=ticker %}
+            </div>
+        </div>
+    </div>
+
+<script>
+    
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.startsWith(name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    
+    function fetchTickers(searchQuery) {
+        const params = new URLSearchParams({ search: searchQuery });
+
+        fetch("{% url 'search' %}?" + params.toString(), {
+            method: 'GET',
+            headers: { 'X-CSRFToken': getCookie('csrftoken') },
+        })
+        .then(response => response.json())
+        .then(data => {
+            const tickerList = document.getElementById('ticker-list');
+            tickerList.innerHTML = ''; 
+
+            data.tickers.forEach(ticker => {
+                const listItem = document.createElement('li');
+                listItem.className = 'list-group-item ticker-item';
+                listItem.textContent = ticker;
+                listItem.addEventListener('click', () => selectTicker(ticker));
+                tickerList.appendChild(listItem);
+            });
+        })
+        .catch(error => console.error('Error fetching tickers:', error));
+    }
+
+    
+    function selectTicker(ticker) {
+        document.querySelectorAll('.ticker-item').forEach(item => {
+            item.classList.remove('active');
+        });
+
+        const selectedTicker = Array.from(document.querySelectorAll('.ticker-item')).find(item => item.textContent === ticker);
+        if (selectedTicker) selectedTicker.classList.add('active');
+
+        document.getElementById('id_ticker').value = ticker;
+    }
+
+        function updateVisualization() {
+        const form = document.getElementById('visualization-settings-form');
+        const ticker = document.getElementById('id_ticker').value;
+
+        if (!ticker) {
+            alert('Please select a ticker.');
+            return;
+        }
+
+        const formData = new FormData(form);
+        const params = new URLSearchParams(formData);
+        const csrfToken = getCookie('csrftoken');
+
+        fetch(`${form.action}?${params.toString()}`, {
+            method: 'GET',
+            headers: { 'X-CSRFToken': csrfToken },
+        })
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById('visualization-field').innerHTML = html;
+
+            const plotDiv = document.getElementById('plotly-div');
+            if (plotDiv) {
+                handlePlotUpdate(plotDiv);
+            }
+
+            const viewType = formData.get('view_type');
+            if (viewType === 'table') {
+                document.getElementById('data-table-container').style.display = 'block';
+            } else {
+                document.getElementById('data-table-container').style.display = 'none';
+            }
+        })
+        .catch(error => console.error('Error updating visualization:', error));
+    }
+
+    
+    function handlePlotUpdate(plotDiv) {
+        if (window.Plotly) {
+            if (plotDiv) {
+                if (plotDiv.innerHTML.trim() !== '') {
+                    try {
+                        const scriptMatch = plotDiv.innerHTML.match(/const plotJson = (.+);/);
+                        if (scriptMatch && scriptMatch[1]) {
+                            const plotJson = JSON.parse(scriptMatch[1].trim());
+                            if (plotJson && plotJson.data) {
+                                Plotly.newPlot(plotDiv, plotJson.data, plotJson.layout);
+                            } else {
+                                console.error("Plot data is missing or empty.");
+                            }
+                        } else {
+                            console.error("Could not find plot JSON.");
+                        }
+                    } catch (error) {
+                        console.error("Error parsing plot JSON:", error);
+                    }
+                }
+            }
+        } else {
+            console.log("Plotly library is not available.");
+        }
+    }
+
+    
+
+   
+    document.addEventListener("DOMContentLoaded", () => {
+        
+        document.getElementById('ticker-search').addEventListener('input', function () {
+            const searchValue = this.value.toLowerCase();
+            if (searchValue) {
+                fetchTickers(searchValue);
+            } else {
+                document.getElementById('ticker-list').innerHTML = ''; 
+            }
+        });
+
+        
+        const form = document.getElementById('visualization-settings-form');
+        if (form) {
+            form.addEventListener('submit', function (event) {
+                event.preventDefault();
+                updateVisualization();
+            });
+        }
+
+
+    });
+
+    document.addEventListener("DOMContentLoaded", function() {
+    const dataTableContainer = document.getElementById('data-table-container');
+
+    
+    dataTableContainer.addEventListener('scroll', function() {
+        if (dataTableContainer.scrollTop + dataTableContainer.clientHeight >= dataTableContainer.scrollHeight) {
+            loadMoreData();
+        }
+    });
+
+    let currentPage = 1; 
+
+    
+    function loadMoreData() {
+        const form = document.getElementById('visualization-settings-form');
+        const formData = new FormData(form);
+        const params = new URLSearchParams(formData);
+        params.append('page', currentPage);
+
+        fetch("{% url 'handle' %}?" + params.toString(), {
+            method: 'GET',
+            headers: { 'X-CSRFToken': getCookie('csrftoken') },
+        })
+        .then(response => response.text())
+        .then(html => {
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = html;
+            const dataTableBody = document.getElementById('data-table-body');
+            const newRows = tempDiv.querySelectorAll('tr');
+            newRows.forEach(row => dataTableBody.appendChild(row));
+
+            
+            currentPage++;
+        })
+        .catch(error => console.error('Error loading more data:', error));
+    }
+
+    
+    const style = document.createElement('style');
+    style.innerHTML = `
+        #data-table-container {
+            max-height: 500px; 
+            overflow-y: auto;  
+            display: block;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            position: sticky;
+            top: 0;
+            background: #f8f9fa;
+            z-index: 10;
+        }
+
+        th, td {
+            padding: 8px;
+            border: 1px solid #dee2e6;
+            text-align: left;
+        }
+    `;
+    document.head.appendChild(style);
+});
+
+
+
+
+
+</script>
+
+
+{% endblock %}

@@ -1,0 +1,336 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Backtest Page
+{% endblock %}
+
+{% block content %}
+{% load static %}
+
+     <div class="col-md-12" id="selected-tickers-container">
+         <ul id="selected-tickers-list" class="selected-tickers-list">
+         </ul>
+     </div>
+
+
+         <div id="form-search-container">
+             <div id="search-results-container">
+                 <div id="ticker-search-container">
+                     <input type="text" id="ticker-search" class="form-control" placeholder="Search">
+                 </div>
+                 <ul id="ticker-list" class="list-group mt-2"></ul>
+             </div>
+<div  id='form-container'>
+  <form id="backtest_form" method="post" action="{% url 'backtest_run' %}">
+                 {% csrf_token %}
+                 <div class="form-content">
+                  {{ form.start_date.label_tag }}
+                     {{ form.start_date }}
+                    {{ form.end_date.label_tag }}
+                     {{ form.end_date }}
+
+                     {{ form.backtest_method.label_tag }}
+                     {{ form.backtest_method }}
+                     {{ form.window_count.label_tag }}
+                     {{ form.window_count }}
+                     {{ form.commission.label_tag }}
+                     {{ form.commission }}
+                    {{ form.cash.label_tag }}
+                     {{ form.cash }}
+                    {{ form.allow_short.label_tag }}
+                     {{ form.allow_short }}
+
+                     {{ form.strategy.label_tag }}
+                     {{ form.strategy }}
+
+                   <div data-strategy="SimpleMovingAverage" class="hidden-form-element">
+                         {{ form.sma_period.label_tag }}
+                         {{ form.sma_period }}
+                   </div>
+                   <div data-strategy="BollingerBand" class="hidden-form-element">
+                         {{ form.period.label_tag }}
+                         {{ form.period }}
+                         {{ form.devfactor.label_tag }}
+                         {{ form.devfactor }}
+                         {{ form.midband.label_tag }}
+                         {{ form.midband }}
+                   </div>
+                   <div data-strategy="RSI" class="hidden-form-element">
+                      {{ form.rsi_period.label_tag }}
+                      {{ form.rsi_period }}
+                   </div>
+                   <div data-strategy="SmaCross" class="hidden-form-element">
+                         {{ form.sma_fast_period.label_tag }}
+                         {{ form.sma_fast_period }}
+                        {{ form.sma_slow_period.label_tag }}
+                         {{ form.sma_slow_period }}
+                   </div>
+                  <div data-strategy="MACDStrategy" class="hidden-form-element">
+                         {{ form.fast_period.label_tag }}
+                        {{ form.fast_period }}
+                        {{ form.slow_period.label_tag }}
+                        {{ form.slow_period }}
+                        {{ form.signal_period.label_tag }}
+                        {{ form.signal_period }}
+                    </div>
+                    <div data-strategy="IchimokuStrategy" class="hidden-form-element">
+                      {{ form.tenkan_period.label_tag }}
+                       {{ form.tenkan_period }}
+                       {{ form.kijun_period.label_tag }}
+                        {{ form.kijun_period }}
+                        {{ form.senkou_b_period.label_tag }}
+                       {{ form.senkou_b_period }}
+                        {{ form.displacement.label_tag }}
+                         {{ form.displacement }}
+                   </div>
+                   <div data-strategy="StochasticStrategy" class="hidden-form-element">
+                         {{ form.period_k.label_tag }}
+                         {{ form.period_k }}
+                           {{ form.period_d.label_tag }}
+                            {{ form.period_d }}
+                           {{ form.period_s.label_tag }}
+                            {{ form.period_s }}
+                            {{ form.overbought.label_tag }}
+                            {{ form.overbought }}
+                            {{ form.oversold.label_tag }}
+                            {{ form.oversold }}
+                   </div>
+
+                    <div data-backtest="expanding_window" class="hidden-form-element">
+                         {{ form.expanding_window_start.label_tag }}
+                        {{ form.expanding_window_start }}
+                   </div>
+
+                     <input type="hidden" id="id_data_feed" name="data_feed">
+                 </div>
+                 <button type="submit" class="btn btn-primary">Run Backtest</button>
+             </form>
+            </div> 
+     </div>
+
+
+      <div id="backtest-result-container" class="mt-4">
+      </div>
+
+<script>
+
+    const getElement = (id) => document.getElementById(id);
+    const getCookie = (name) => document.cookie.split(';').find(cookie => cookie.trim().startsWith(name + '='))?.split('=')[1] ?? '';
+    let tickersInFeed = "{{ current_tickers|join:',' }}".split(',').filter(ticker => ticker);
+
+
+    function updateDataFeedInput() {
+        getElement('id_data_feed').value = tickersInFeed.join(',');
+    }
+
+    function appendTickerToFeedList(ticker) {
+        const selectedTickersList = getElement('selected-tickers-list');
+        const listItem = document.createElement('li');
+        listItem.textContent = ticker;
+        listItem.className = 'ticker-item';
+        listItem.onclick = () => removeTickerFromFeed(listItem);
+        selectedTickersList.appendChild(listItem);
+    }
+
+    function removeTickerFromFeed(listItem) {
+        tickersInFeed = tickersInFeed.filter(item => item !== listItem.textContent);
+        updateDataFeedInput();
+        listItem.remove();
+        updateDataFeedServer();
+    }
+
+    function updateDataFeedServer() {
+         fetch("{% url 'update_current_tickers' %}", {
+             method: 'POST',
+             headers: {
+                 'X-CSRFToken': getCookie('csrftoken'),
+                 'Content-Type': 'application/json'
+             },
+             body: JSON.stringify({ 'tickers': tickersInFeed })
+         })
+         .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json()
+         })
+            .then(data => {
+            if (data.status === 'success') {
+                tickersInFeed = data.tickers;
+                updateSelectedTickers();
+            }
+         })
+           .catch(error => console.error('Error updating tickers on server:', error));
+    }
+
+    function updateSelectedTickers() {
+        const selectedTickersList = getElement('selected-tickers-list');
+        selectedTickersList.innerHTML = '';
+        tickersInFeed.forEach(ticker => appendTickerToFeedList(ticker));
+    }
+
+
+    function fetchTickers(searchQuery) {
+        const params = new URLSearchParams({ search: searchQuery });
+
+        fetch("{% url 'search' %}?" + params.toString(), {
+            method: 'GET',
+            headers: { 'X-CSRFToken': getCookie('csrftoken') },
+        })
+         .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json()
+             })
+         .then(data => {
+                const tickerList = getElement('ticker-list');
+                tickerList.innerHTML = ''; 
+                data.tickers.forEach(ticker => {
+                    const listItem = document.createElement('li');
+                    listItem.className = 'list-group-item ticker-item';
+                    listItem.textContent = ticker;
+                    listItem.onclick = () => {
+                        tickersInFeed.push(ticker);
+                        updateDataFeedInput();
+                        updateSelectedTickers();
+                        updateDataFeedServer();
+                    };
+                    tickerList.appendChild(listItem);
+                });
+            })
+            .catch(error => console.error('Error fetching tickers:', error));
+    }
+    function handlePlotUpdate(plotDiv) {
+            if (window.Plotly) {
+                if (plotDiv) {
+                    if (plotDiv.innerHTML.trim() !== '') {
+                        try {
+                            const scriptMatch = plotDiv.innerHTML.match(/const plotJson = (.+);/);
+                            if (scriptMatch && scriptMatch[1]) {
+                                const plotJson = JSON.parse(scriptMatch[1].trim());
+                                if (plotJson && plotJson.data) {
+                                    Plotly.newPlot(plotDiv, plotJson.data, plotJson.layout);
+                                } else {
+                                    console.error("Plot data is missing or empty.");
+                                }
+                            } else {
+                                console.error("Could not find plot JSON.");
+                            }
+                        } catch (error) {
+                            console.error("Error parsing plot JSON:", error);
+                        }
+                    }
+                }
+            } else {
+                console.log("Plotly library is not available.");
+            }
+        }
+
+
+    
+    function handleFormSubmit(event) {
+        event.preventDefault();
+
+        const form = event.target;
+        const formData = new FormData(form);
+        const params = new URLSearchParams(formData);
+        const csrfToken = getCookie('csrftoken');
+
+        fetch(`${form.action}?${params.toString()}`, {
+            method: 'GET',
+            headers: { 'X-CSRFToken': csrfToken },
+        })
+        .then(response => {
+                if (!response.ok) {
+                   throw new Error(`HTTP error! status: ${response.status}`);
+                }
+               return response.json()
+           })
+         .then(data => {
+                if (data.status === 'success') {
+                    const resultsContainer = getElement('backtest-result-container');
+                    resultsContainer.innerHTML = data.analysis_results;
+
+                   const pnlPlotDiv = resultsContainer.querySelector('#pnl-plot');
+                   if (pnlPlotDiv) {
+                        handlePlotUpdate(pnlPlotDiv);
+                    }
+
+                    const winLossPlotDiv = resultsContainer.querySelector('#win-loss-plot');
+                    if (winLossPlotDiv) {
+                        handlePlotUpdate(winLossPlotDiv);
+                   }
+
+                } else if (data.status === 'error') {
+                    console.error(data.message);
+                }
+         })
+           .catch(error => console.error('Error submitting backtest form:', error));
+    }
+
+     
+    function updateFormVisibility() {
+        const strategySelect = getElement('id_strategy');
+        const backtestMethodSelect = getElement('id_backtest_method');
+        const selectedStrategy = strategySelect?.value || '';
+        const selectedBacktestMethod = backtestMethodSelect?.value || '';
+
+
+
+        document.querySelectorAll('[data-strategy]').forEach(el => {
+            el.style.display = 'none';
+        });
+
+
+        document.querySelectorAll('[data-backtest]').forEach(el => {
+            el.style.display = 'none';
+        });
+
+
+
+        const strategyFields = document.querySelector(`[data-strategy="${selectedStrategy}"]`);
+        if (strategyFields) {
+            strategyFields.style.display = '';
+        }
+
+
+        const backtestFields = document.querySelector(`[data-backtest="${selectedBacktestMethod}"]`);
+        if (backtestFields) {
+          backtestFields.style.display = '';
+       }
+
+    }
+
+
+  
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        getElement('backtest_form').addEventListener('submit', handleFormSubmit);
+
+        
+        const tickerSearch = getElement('ticker-search');
+        if (tickerSearch) {
+            tickerSearch.addEventListener('input', (event) => {
+                fetchTickers(event.target.value);
+            });
+        }
+        updateSelectedTickers();
+
+        
+        updateFormVisibility();
+
+        
+        const strategySelect = getElement('id_strategy');
+        if(strategySelect){
+            strategySelect.addEventListener('change', updateFormVisibility);
+        }
+         const backtestMethodSelect = getElement('id_backtest_method');
+         if(backtestMethodSelect){
+            backtestMethodSelect.addEventListener('change', updateFormVisibility);
+        }
+
+    });
+</script>
+
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Login to Your Account
+{% endblock %}
+
+{% block content %}
+<h1>Type your username and password</h1>
+
+<!-- Display messages -->
+{% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <div class="message {% if message.tags %}{{ message.tags }}{% endif %}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+<form class="form-with-validation" action="{% url 'login' %}" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit">Login</button>
+</form>
+
+
+{% endblock %}
+

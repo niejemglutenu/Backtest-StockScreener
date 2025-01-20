@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block title %}Welcome to Backtest & StockScreener Application{% endblock %}
+
+{% block content %}
+<section class="welcome-container">
+    <div class="welcome-content">
+        <h1>Welcome to Backtest Application</h1>
+        <p>Here you will have access to a variety of tools to help you with backtesting financial data.</p>
+        <p>Use the menu to navigate between different available options for data analysis, stock backtesting.</p>
+
+        <div class="actions">
+            {% if request.user.is_authenticated %}
+                <p>Hello, <strong>{{ request.user.username }}</strong>!</p>
+                <a href="{% url 'logout' %}">
+                    <button class="btn">Logout</button>
+                </a>
+            {% else %}
+                <a href="#" hx-get="{% url 'login' %}" hx-target="#main-content" hx-swap="innerHTML">
+                    <button class="btn">Login</button>
+                </a>
+
+                <a href="#" hx-get="{% url 'register' %}" hx-target="#main-content" hx-swap="innerHTML">
+                    <button class="btn">Register</button>
+                </a>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Center content vertically and horizontally */
+    .welcome-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        text-align: center;
+        background: #f4f4f4;
+        font-family: 'Arial', sans-serif;
+        padding: 20px;
+    }
+
+    .welcome-content {
+        max-width: 600px;
+        background: #fff;
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    p {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: #555;
+    }
+
+    .actions {
+        margin-top: 20px;
+    }
+
+    .btn {
+        display: inline-block;
+        background: #007bff;
+        color: #fff;
+        padding: 10px 20px;
+        font-size: 1rem;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+        margin: 10px 5px;
+        transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+        background: #0056b3;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .welcome-content {
+            width: 90%;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+        }
+
+        p {
+            font-size: 1rem;
+        }
+    }
+</style>
+
+{% endblock %}
