@@ -1,0 +1,781 @@
+/* ==========================================================================
+   Table of Contents:
+   ==========================================================================
+   1.  General Styles
+   2.  Navbar
+   3.  Headings and Paragraphs
+   4.  Buttons and Forms
+   5.  Visualization Settings Form
+   6.  Visualization Section
+   7.  Data Table
+   8.  Search (Analytical Page)
+   9.  Backtest Page Styles
+   10. Responsive Design
+   11. Footer
+   ========================================================================== */
+
+/* ==========================================================================
+   1. General Styles
+   ========================================================================== */
+
+   body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f5f9;
+    color: #34495e;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1rem;
+    min-height: 100vh;
+}
+
+#main-content {
+    padding: 2vw;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin: 5vh auto;
+    width: 80%;
+    max-width: 1400px;
+}
+
+@media (max-width: 1200px) {
+    #main-content {
+        width: 90%;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        font-size: 0.9rem;
+    }
+    #main-content {
+        width: 95%;
+        padding: 5vw;
+    }
+}
+
+  
+
+  
+  
+  /* ==========================================================================
+     2. Navbar
+     ========================================================================== */
+  
+  .navbar {
+    overflow: hidden;
+    background-color: #ffffff;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 25px;
+  }
+  
+  .navbar-nav.ms-auto {
+      overflow: hidden;
+      background-color: #ffffff;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 25px;
+  }
+  
+  .navbar-nav.ms-auto:hover {
+      color: #ffffff;
+  }
+  
+  .navbar-brand {
+    color: #000000;
+    text-decoration: none;
+    font-size: 1.3em;
+    font-weight: bold;
+    padding: 5px 10px;
+  }
+  
+  .navbar-brand:hover {
+    color: #a1deee;
+  }
+  
+  .nav-links {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .nav-links li {
+    margin-left: 10px;
+  }
+  
+  .nav-links li:first-child {
+    margin-left: 0;
+  }
+  
+  .nav-links a,
+  .nav-links span {
+    display: inline-block;
+    color: #fffbea;
+    text-align: center;
+    padding: 10px 15px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .nav-links a:hover {
+    background-color: #fffbea;
+    color: #e4ac12;
+    border-radius: 4px;
+  }
+  
+  .nav-links span {
+    padding: 10px 15px;
+  }
+  
+  /* ==========================================================================
+     3. Headings and Paragraphs
+     ========================================================================== */
+  
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-size: 1.5em;
+    color: #2c3e50;
+  }
+  
+  p {
+    font-size: 1.35em;
+    margin-bottom: 1em;
+  }
+  
+  /* ==========================================================================
+     4. Buttons and Forms
+     ========================================================================== */
+  
+  button,
+  .btn {
+    font-size: 1.1em;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-weight: 600;
+  }
+  
+  input,
+  select,
+  textarea {
+    font-size: 1.1em;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+    transition: border-color 0.3s ease;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  /* ==========================================================================
+     5. Visualization Settings Form
+     ========================================================================== */
+  #visualization-settings-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  
+  #visualization-settings-form .form-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    width: 100%;
+  }
+  
+  #visualization-settings-form .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    flex: 1;
+    min-width: 200px;
+  }
+  
+  #visualization-settings-form .form-group label {
+    font-weight: 600;
+    color: #333;
+  }
+  
+  #visualization-settings-form .form-group input[type="date"],
+  #visualization-settings-form .form-group select {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+    transition: border-color 0.3s ease;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  #visualization-settings-form .form-group input[type="date"]:focus,
+  #visualization-settings-form .form-group select:focus {
+    border-color: #3c73d8;
+    outline: none;
+  }
+  
+  #visualization-settings-form select,
+  #visualization-settings-form input[type="date"],
+  #visualization-settings-form input[type="file"] {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+    transition: border-color 0.3s ease;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  #visualization-settings-form select:focus,
+  #visualization-settings-form input[type="date"]:focus,
+  #visualization-settings-form input[type="file"]:focus {
+    border-color: #3e94db;
+    outline: none;
+  }
+  
+  #visualization-settings-form input[type="radio"] {
+    margin-right: 5px;
+    cursor: pointer;
+  }
+  
+  #visualization-settings-form .data-source-options > label,
+  #visualization-settings-form .server-data-options > label,
+  #visualization-settings-form .upload_area > label {
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  #visualization-settings-form .server-data-options,
+  #visualization-settings-form .upload_area {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+  }
+  
+  .form-actions {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+  }
+  
+  .form-actions .btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-weight: 600;
+  }
+  
+  .form-actions .btn-primary {
+    background-color: #6ca2df;
+    color: white;
+  }
+  
+  .form-actions .btn-primary:hover {
+    background-color: #163f6d;
+    transform: scale(1.05);
+  }
+  
+  #visualization-settings-form button {
+    background-color: #36a9d6;
+    color: white;
+    padding: 12px 22px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 15px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-weight: 600;
+    width: fit-content;
+    align-self: flex-start;
+  }
+  
+  #visualization-settings-form button:hover {
+    background-color: #328eda;
+    transform: scale(1.05);
+  }
+  
+  /* ==========================================================================
+     6. Visualization Section
+     ========================================================================== */
+  
+  #chart-container {
+    width: 100vw;
+    max-width: 1600px;
+    min-height: 40vh;
+    margin-top: 20px;
+  }
+  
+  .loading-spinner {
+    width: 5vw;
+    height: 5vw;
+    max-width: 60px;
+    max-height: 60px;
+  }
+  
+  #plotly-div {
+    font-family: 'Arial', sans-serif;
+    color: #34495e;
+    width: 100%;
+    height: 100vh;
+    margin: 0 auto;
+  }
+  
+  #visualization-field {
+    padding: 0.2vw;
+    background-color: #f9f9f9;
+    border-radius: 0.5vw;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex-grow: 2;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  #visualization-field > * {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  
+  /* ==========================================================================
+     7. Data Table
+     ========================================================================== */
+  
+  #data-table-container {
+    display: none;
+    margin-top: 20px;
+  }
+  
+  #data-table {
+    width: 95%;
+    max-width: 1200px;
+    font-size: 1.2vw;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  thead {
+    position: sticky;
+    top: 0;
+    background: #f8f9fa;
+    z-index: 10;
+  }
+  
+  th,
+  td {
+    padding: 1vw;
+    border: 1px solid #dee2e6;
+    text-align: left;
+      font-size: 1.4em;
+  }
+  
+  #data-table th {
+    background-color: #f5f5f5;
+    font-weight: bold;
+  }
+  
+  #data-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  
+  /* ==========================================================================
+     8. Search (Analytical Page)
+     ========================================================================== */
+  
+  #search-results-container {
+      position: fixed;
+      top: 60px;
+      left: 0;
+      width: calc(100% / 7 / 1.5);
+      height: calc(100vh - 60px);
+      background-color: #f0f5f9;
+      padding: 10px;
+      overflow-y: auto;
+      z-index: 1000;
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  #ticker-search-container {
+      padding: 10px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  #ticker-search {
+      width: 100%;
+      padding: 20px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+      transition: border-color 0.3s ease;
+      font-size: 1.5em;
+  }
+  
+  #ticker-search:focus {
+      border-color: #3c73d8;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+      outline: none;
+  }
+  
+  #ticker-list {
+      list-style: none;
+      padding: 0;
+  }
+  
+  #ticker-list li {
+      margin: 5px 0;
+      padding: 10px;
+      background-color: #f0f0f0;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  #ticker-list li:hover {
+      background-color: #e0e0e0;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  #ticker-list li.active {
+      background-color: #e0e0e0;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  #ticker-list li a {
+      text-decoration: none;
+      color: #333;
+      display: block;
+      transition: color 0.2s ease;
+  }
+  
+  #ticker-list li a:hover {
+      color: #000;
+  }
+  .container-fluid {
+    padding: 20px;
+    max-width: 100%; 
+    display: flex;
+     flex-direction: column;
+    align-items: stretch;
+}
+  
+  .col-md-9 {
+      padding-left: 0;
+  }
+  
+  #ticker-search {
+      width: calc(100% - 5px);
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+      transition: border-color 0.3s ease;
+  }
+  
+  #ticker-list {
+      list-style: none;
+      padding: 0;
+      position: sticky;
+      top: 70px;
+      max-height: calc(100vh - 100px);
+      overflow-y: auto;
+    font-size: 1.5em
+  }
+  
+  #ticker-list li {
+      margin: 5px 0;
+      padding: 10px;
+      background-color: #f0f0f0;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  #ticker-list li:hover {
+      background-color: #e0e0e0;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  #ticker-list li a {
+      text-decoration: none;
+      color: #333;
+      display: block;
+      transition: color 0.2s ease;
+  }
+  
+  #ticker-list li a:hover {
+      color: #000;
+  }
+  
+  /* ==========================================================================
+     9. Backtest Page Styles
+     ========================================================================== */
+     
+
+
+    #form-search-container {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 10px;
+    }
+
+    #selected-tickers-container {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 25px;
+        margin-left: 150px;
+        margin-right: 100px;
+    }
+
+    .selected-tickers-list li {
+        background-color: rgba(223, 208, 161, 0.37);
+        font-size: 1.5em;
+        padding: 10px;
+        border-radius: 5px;
+        margin: 5px;
+        color: rgb(0, 0, 0);
+        display: inline-block;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    #search-results-container {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 15px;
+        min-width: 200px;
+        margin-right: 10px;
+    }
+
+    #ticker-search-container {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    #ticker-search {
+        width: calc(100% - 20px);
+        padding: 12px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        transition: border-color 0.3s ease;
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    #ticker-search:focus {
+        border-color: #2740b1;
+        outline: none;
+    }
+
+    #ticker-list {
+        list-style: none;
+        padding: 0;
+    }
+
+    #ticker-list li {
+        padding: 10px;
+        background-color: #f0f0f0;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        transition: background-color 0.2s ease, box-shadow 0.2s ease;
+        cursor: pointer;
+    }
+
+    #ticker-list li:hover {
+        background-color: #e0e0e0;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+ 
+
+    #backtest_form button {
+        font-size: 1.1em;
+        background-color: #36a9d6;
+        color: white;
+        padding: 12px 22px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        font-weight: 600;
+    }
+
+    #backtest_form button:hover {
+        background-color: #328eda;
+        transform: scale(1.05);
+    }
+
+    #backtest-result-container {
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    
+    .hidden-form-element {
+        display: none;
+    }
+
+  
+    #form-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        justify-content: center;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 1200px; 
+        padding: 20px;
+    }
+
+    #form-container .form-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    #form-container .form-group {
+        flex: 1 1 calc(33.33% - 30px); 
+        min-width: 200px;
+    }
+
+    #backtest-result-container {
+        margin-left: 100px;
+    }
+
+
+
+    
+  
+  .form-content input[type="checkbox"] {
+    margin-right: 5px;
+    cursor: pointer;
+  }
+  
+  .form-actions {
+    display: flex;
+    justify-content: flex-start;
+    gap: 5px; 
+    margin-top: 10px; 
+  }
+  
+  .form-actions .btn {
+    font-size: 1.1em;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-weight: 600;
+  }
+  
+  .form-actions .btn-primary {
+    background-color: #6ca2df;
+    color: white;
+  }
+  
+  .form-actions .btn-primary:hover {
+    background-color: #163f6d;
+    transform: scale(1.05);
+  }
+  
+  #backtest_form button {
+      font-size: 1.1em;
+      background-color: #36a9d6;
+      color: white;
+      padding: 12px 22px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 15px;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      font-weight: 600;
+      width: fit-content;
+      align-self: flex-start;
+  }
+  
+  #backtest_form button:hover {
+      background-color: #328eda;
+      transform: scale(1.05);
+  }
+  
+  .hidden-form-element {
+      display: none;
+  }
+  
+  /* ==========================================================================
+    10. Responsive Design
+    ========================================================================== */
+  
+  @media (min-width: 1600px) {
+    #chart-container {
+      max-width: 1400px;
+    }
+  
+    #plotly-div {
+      height: 70vh;
+    }
+  
+    #data-table {
+      font-size: 1.1em;
+    }
+  }
+  
+  /* ==========================================================================
+     11. Footer
+     ========================================================================== */
+  footer {
+    text-align: center;
+    padding: 10px 0;
+    margin-top: 30px;
+    background-color: #2c3e50;
+    color: #fff;
+    font-size: 0.9em;
+  }
