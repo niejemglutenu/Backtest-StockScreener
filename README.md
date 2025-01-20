@@ -54,7 +54,8 @@ b. Wymagania dodatkowe (nieosiągnięte)
 
 6. Architektura systemu/oprogramowania
 
-
+IDE:
+- Visual Studio Code
 
 Języki:
 - Python - backend
@@ -78,11 +79,17 @@ Zawarte zostały jedynie najważniejsze z wykorzystanych bibliotek. Pełna lista
 
 7. Testy
    
-a. Scenariusze testów
+a. Scenariusze testów - wizualizacje
 
 1) Użytkownik zakłada konto, loguje się i wylogowuje się.
-2) Uzytkownik wybiera rodzaj wizualizacji oraz symbol giełdowy, a następnie wyświetla pożądane dane.
-3) Uzytkownik zaznacza wszystkie niezbędne opcje testu i uruchamia backtest.
+3) Uzytkownik wybiera rodzaj wizualizacji oraz symbol giełdowy, a następnie wyświetla dostępne wykresy i tabele.
+4) Użytkownik filtruje horyzont inwestycji.
+
+a. Scenariusze testów - backtest
+
+5) Wybranie opcji testu.
+6) Dodanie symboli do poerfela.
+7) URuchumienie testu.
    
 b. Sprawozdanie z wykonania scenariuszy testów
 
