@@ -19,15 +19,16 @@ Miłosz Aubrecht-Prądzyński
 
 5. Specyfikacja wymagań – alternatywnie: a lub b
 
-Id	nazwa	opis	priorytet	kategoria
-1	User 	Możliwość założenia konta, funkcje logowania, rejestrowania i wylogowywania	przydatne	funkcjonalne
-2	Pliki użytkownika	Możliwość przetwarzania plików przesłanych przez użytkownika	wymagane	funkcjonalne
-3	Notowania z bazy danych	Udostępnienie użytkownikowi wybranych symboli giełdowych		
-4	Wizualizacja danych 	Wizualizacje( wykres liniowy dla ceny, hisogramy dla zwrotów, wykres świecowy)	wymagane	funkcjonalne
-5	Lista symboli	Wyszukiwanie symbolu spółki za pomocą stale przypiętej listy.	przydatne	funkcjonalne
-6	Przeprowadzenie testu	Przeprowadzenie backtestu, historycnzych symulacji realizacji portfeli inwestycyjnych 	wymagane	funkcjonalne
-7	Wyniki testu	Wyświetlenie wyników backtestu (portfolio performence metrics)	wymagane	pozafunkcjonalne
-![image](https://github.com/user-attachments/assets/289d1ef5-0832-4db0-a22f-ac0eda29b326)
+| Id  | Nazwa                  | Opis                                                                 | Priorytet  | Kategoria        |
+| --- |:----------------------:|:-------------------------------------------------------------------:|:----------:|:----------------:|
+| 1   | User                   | Możliwość założenia konta, funkcje logowania, rejestrowania i wylogowywania | przydatne  | funkcjonalne     |
+| 2   | Pliki użytkownika       | Możliwość przetwarzania plików przesłanych przez użytkownika         | wymagane   | funkcjonalne     |
+| 3   | Notowania z bazy danych | Udostępnienie użytkownikowi wybranych symboli giełdowych              | wymagane   | pozafunkcjonalne  |
+| 4   | Wizualizacja danych     | Wizualizacje (wykres liniowy dla ceny, histogramy dla zwrotów, wykres świecowy) | wymagane   | funkcjonalne     |
+| 5   | Lista symboli           | Wyszukiwanie symbolu spółki za pomocą stale przypiętej listy         | przydatne  | funkcjonalne     |
+| 6   | Przeprowadzenie testu   | Przeprowadzenie backtestu, historycznych symulacji realizacji portfeli inwestycyjnych | wymagane   | funkcjonalne     |
+| 7   | Wyniki testu            | Wyświetlenie wyników backtestu (portfolio performance metrics)       | wymagane   | pozafunkcjonalne |
+
 
 
 a. Pogrupowana lista składająca się z następujących kolumn:
