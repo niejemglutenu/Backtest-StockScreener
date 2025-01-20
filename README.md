@@ -22,7 +22,8 @@ Aplikacja pozwala na zarówno użytkowanie swoich własnych danych, jak i dostar
 a. Autorzy
 Miłosz Aubrecht-Prądzyński
 
-5. Specyfikacja wymagań – alternatywnie: a lub b
+5. Specyfikacja wymagań 
+a. Wymagania zawarte
 
 | Id  | Nazwa                  | Opis                                                                 | Priorytet  | Kategoria        |
 | --- |:----------------------:|:-------------------------------------------------------------------:|:----------:|:----------------:|
@@ -36,16 +37,34 @@ Miłosz Aubrecht-Prądzyński
 | 8   | Opcje backtestu     | Wybór okresu, symboli, strategii i parametrów, wysokości opłat   | wymagane   | funkcjonalne     |
 | 9   | Wyniki testu            | Wyświetlenie wyników backtestu (portfolio performance metrics)       | wymagane   | pozafunkcjonalne |
 
+b. Wymagania dodatkowe (nieosiągnięte)
+
+| Id  | Nazwa                  | Opis                                                                 | Priorytet  | Kategoria        |
+| --- |:----------------------:|:-------------------------------------------------------------------:|:----------:|:----------------:|
+| 1   | Rolling window          | Podział horyzontu inwestycyjnego na określoną liczbę okien | dodatkowe  | funkcjonalne     |
+| 2   | Train-validate-test      | Podział horyzontu inwestycyjnego na zestawy danych, wykorzystywanych do uczenia, walidacji i oceny jakości modeli i ich prognozy  | dodatkowe   | funkcjonalne     |
+| 3   | Train-validate-test + rolling window | Połączenie dwóch powyższych funkcjonalności | dodatkowe   | funkcjonalne  |
+| 4   | Strategie oparte na prognozach | Wykorzystanie informcji pochodzącej z prognozy modelu ekonometrycznego lub ML w celu budowy strategii generowania sygnałów giełdowcyh | dodatkowe   | funkcjonalne     |
+
 
 6. Architektura systemu/oprogramowania
 
+
+
 Języki:
-- Python
-- Javasript
-  
+- Python - backend
+- Javasript  - frontend
+
+Framework:
+- Django==5.1.4
+- Bootstrap 5.3.2 (JavaScript Bundle)
+
+HTML:
+- Django template engine
+- AJAX
+ 
 Biblioteki:
 - backtrader==1.9.78.123
-- Django==5.1.4
 - pandas==2.2.3
 - plotly==5.24.1
 
