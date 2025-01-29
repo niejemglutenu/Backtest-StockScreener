@@ -7,10 +7,9 @@ a. Nazwa skrócona:
 BacktestAPP
 
 b. Nazwa pełna:
-Analytical tool for backtesting and stock screener 
-Backtest&Sctockscreener
+Analytical tool for backtesting and stocks monitoring 
 
-Stworzona aplikacja internetowa służy do przeprowadzania symulacji inwestycji portfelowej w akcje.
+Aplikacja internetowa służy do przeprowadzania symulacji portfeli inwestycyjnych.
 Składa się z dwóch analitycznych portali. 
 
 A) "StockScreener" stanowi panel pozwalający na wybór konkretnej spółki giełdowej i wizualizację dostępnych danych.
@@ -26,7 +25,7 @@ Miłosz Aubrecht-Prądzyński
 b. Licencje
 Apache License 2.0
 5. Specyfikacja wymagań 
-a. Wymagania zawarte
+a. Wymagania zrealizowane
 
 | Id  | Nazwa                  | Opis                                                                 | Priorytet  | Kategoria        |
 | --- |:----------------------:|:-------------------------------------------------------------------:|:----------:|:----------------:|
@@ -50,7 +49,6 @@ b. Wymagania dodatkowe (nieosiągnięte)
 | 2   | Train-validate-test      | Podział horyzontu inwestycyjnego na zestawy danych, wykorzystywanych do uczenia, walidacji i oceny jakości modeli i ich prognozy  | dodatkowe   | funkcjonalne     |
 | 3   | Train-validate-test + rolling window | Połączenie dwóch powyższych funkcjonalności | dodatkowe   | funkcjonalne  |
 | 4   | Strategie oparte na prognozach | Wykorzystanie informcji pochodzącej z prognozy modelu ekonometrycznego lub ML w celu budowy strategii generowania sygnałów giełdowcyh | dodatkowe   | funkcjonalne     |
-
 
 6. Architektura systemu/oprogramowania
 
@@ -97,5 +95,5 @@ Każdy z testów zakończył się pozytywnie.
 
 8. Instrukcja instalacji.
    1) instalacja bibliotek
-   2) 
+   2) python manage.py runserver
 
