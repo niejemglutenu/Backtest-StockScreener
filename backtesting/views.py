@@ -1,126 +1,41 @@
-from django.shortcuts import render, redirect
-from django.contrib import messages
-from django.http import HttpResponse, JsonResponse
-from django.contrib.auth.decorators import login_required
-from django.utils.dateparse import parse_date
-from .models import StockData
-from .forms import StockDataSourceForm, VisualizationSettingsForm
-import pandas as pd
+import base64
 import csv
 import io
 import json
-from django.utils.html import format_html
-
 import logging
+import numpy as np
+import matplotlib.pyplot as plt
 import pandas as pd
-import backtrader as bt
-import plotly.graph_objects as go
-from django.shortcuts import render
-from django.http import JsonResponse
-from .forms import BacktestSettingsForm
-import logging
-from django.core.paginator import Paginator, EmptyPage
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from datetime import datetime, timezone
+from django import forms
+from django.contrib import messages
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.core.paginator import EmptyPage, Paginator
+from django.http import HttpResponse, JsonResponse
+from django.shortcuts import redirect, render
+from django.template.loader import render_to_string
+from django.utils.dateparse import parse_date
+from django.utils.html import format_html
+from django_filters import rest_framework as filters
+import backtrader as bt
+from backtrader import Cerebro, TimeFrame, plot, strategy
+from backtrader.feeds import PandasData
+import plotly.graph_objects as go
 from .chart import create_plot
 from .filters import StockDataFilter
+from .forms import BacktestSettingsForm, StockDataSourceForm, VisualizationSettingsForm
 from .models import StockData
-from datetime import datetime, timezone
-from django.template.loader import render_to_string
-import logging
-import pandas as pd
-from datetime import datetime
-from django.http import JsonResponse
-from .models import StockData
-from django_filters import rest_framework as filters
-from django.shortcuts import render
-logger = logging.getLogger(__name__)
-import plotly.graph_objects as go
-from django.http import JsonResponse
-from django.shortcuts import render
-from django.core.paginator import Paginator
-import json
-import pandas as pd
-from backtesting.forms import BacktestSettingsForm
-import backtrader as bt
-import logging
-import io
-import base64
-from backtrader.feeds import PandasData
-import matplotlib.pyplot as plt
-from backtrader import plot
-import numpy as np
-import plotly.graph_objects as go
-from django.http import JsonResponse
-from django.shortcuts import render
-from django.core.paginator import Paginator
-import json
-import pandas as pd
-from backtesting.forms import BacktestSettingsForm
-import backtrader as bt
-import logging
-import io
-import base64
-from backtrader.feeds import PandasData
-import matplotlib.pyplot as plt
-from backtrader import plot
-
-import numpy as np
-from django.shortcuts import render, redirect
-from django.http import JsonResponse
-from backtrader import Cerebro, strategy, plot
-
-from backtrader.feeds import PandasData
-from .forms import BacktestSettingsForm
-import pandas as pd
-from backtrader.feeds import PandasData
-from .forms import BacktestSettingsForm
-import backtrader as bt
-from django.shortcuts import render, redirect
-from django.http import JsonResponse
-from .forms import BacktestSettingsForm
-import pandas as pd
-
-from backtrader import Cerebro, plot
-from backtrader.feeds import PandasData
-import matplotlib.pyplot as plt
-
-from .strategy import SmaCross, RSIStrategy
-from django.shortcuts import render, redirect
-from django.http import JsonResponse
-from .forms import BacktestSettingsForm
-
-import logging
-import pandas as pd
-from datetime import datetime
-from django.http import JsonResponse
-from .models import StockData
-from django_filters import rest_framework as filters
-from django import forms
-from django.shortcuts import render
-import backtrader as bt
-from backtrader import TimeFrame
-from .strategy import SimpleMovingAverageStrategy, BollingerBandStrategy, RSIStrategy, SmaCross, MACDStrategy, StochasticStrategy, IchimokuStrategy
-import io
-import base64
-from matplotlib import pyplot as plt
-import numpy as np
-
-from backtrader import feed
-import logging
-import pandas as pd
-from django.shortcuts import render
-from django.http import JsonResponse
-from .forms import BacktestSettingsForm
-import backtrader as bt
-from backtrader import TimeFrame
-from backtrader.feeds import PandasData
-from backtrader import plot
-from .strategy import SmaCross, RSIStrategy
-import matplotlib.pyplot as plt
-import numpy as np
-import io
-import base64
+from .strategy import (
+    BollingerBandStrategy,
+    IchimokuStrategy,
+    MACDStrategy,
+    RSIStrategy,
+    SmaCross,
+    SimpleMovingAverageStrategy,
+    StochasticStrategy,
+)
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 ######################### USER ##########################
 
